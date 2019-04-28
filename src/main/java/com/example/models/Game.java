@@ -2,78 +2,137 @@ package com.example.models;
 
 import java.util.Objects;
 
+import java.util.Date;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 @Document(collection = "games")
 public class Game {
- @Id
- ObjectId _id;
- String name;
- Integer rankWeek;
- Integer rank;
+@Id
+public ObjectId id;
+
+@Field("name")
+private String Name;
+
+@Field("dataCreated")
+private Long dataCreated = (new Date().getTime())/ 1000;
+ 
+@Field("dataModified")
+private Long dataModified  = (new Date().getTime())/ 1000;
+
+@Field("rank")
+private int rank;
+
+@Field("rankMonth")
+private int rankMonth;
+
+@Field("rankWeek")
+private int rankWeek;
 
 
   public Game() {
   }
 
-  public Game(ObjectId _id, String name, Integer rankWeek, Integer rank) {
-    this._id = _id;
-    this.name = name;
-    this.rankWeek = rankWeek;
+  public Game(ObjectId id, String Name, Long dataCreated, Long dataModified, int rank, int rankMonth, int rankWeek) {
+    this.id = id;
+    this.Name = Name;
+    this.dataCreated = dataCreated;
+    this.dataModified = dataModified;
     this.rank = rank;
+    this.rankMonth = rankMonth;
+    this.rankWeek = rankWeek;
   }
 
-  public ObjectId get_id() {
-    return this._id;
+  public ObjectId getId() {
+    return this.id;
   }
 
-  public void set_id(ObjectId _id) {
-    this._id = _id;
+  public void setId(ObjectId id) {
+    this.id = id;
   }
 
   public String getName() {
-    return this.name;
+    return this.Name;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setName(String Name) {
+    this.Name = Name;
   }
 
-  public Integer getRankWeek() {
-    return this.rankWeek;
+  public Long getDataCreated() {
+    return this.dataCreated;
   }
 
-  public void setRankWeek(Integer rankWeek) {
-    this.rankWeek = rankWeek;
+  public void setDataCreated(Long dataCreated) {
+    this.dataCreated = dataCreated;
   }
 
-  public Integer getRank() {
+  public Long getDataModified() {
+    return this.dataModified;
+  }
+
+  public void setDataModified(Long dataModified) {
+    this.dataModified = dataModified;
+  }
+
+  public int getRank() {
     return this.rank;
   }
 
-  public void setRank(Integer rank) {
+  public void setRank(int rank) {
     this.rank = rank;
   }
 
-
-  public Game _id(ObjectId _id) {
-    this._id = _id;
-    return this;
+  public int getRankMonth() {
+    return this.rankMonth;
   }
 
-  public Game name(String name) {
-    this.name = name;
-    return this;
+  public void setRankMonth(int rankMonth) {
+    this.rankMonth = rankMonth;
   }
 
-  public Game rankWeek(Integer rankWeek) {
+  public int getRankWeek() {
+    return this.rankWeek;
+  }
+
+  public void setRankWeek(int rankWeek) {
     this.rankWeek = rankWeek;
+  }
+
+  public Game id(ObjectId id) {
+    this.id = id;
     return this;
   }
 
-  public Game rank(Integer rank) {
+  public Game Name(String Name) {
+    this.Name = Name;
+    return this;
+  }
+
+  public Game dataCreated(Long dataCreated) {
+    this.dataCreated = dataCreated;
+    return this;
+  }
+
+  public Game dataModified(Long dataModified) {
+    this.dataModified = dataModified;
+    return this;
+  }
+
+  public Game rank(int rank) {
     this.rank = rank;
+    return this;
+  }
+
+  public Game rankMonth(int rankMonth) {
+    this.rankMonth = rankMonth;
+    return this;
+  }
+
+  public Game rankWeek(int rankWeek) {
+    this.rankWeek = rankWeek;
     return this;
   }
 
@@ -85,30 +144,24 @@ public class Game {
             return false;
         }
         Game game = (Game) o;
-        return Objects.equals(_id, game._id) && Objects.equals(name, game.name) && Objects.equals(rankWeek, game.rankWeek) && Objects.equals(rank, game.rank);
+        return Objects.equals(id, game.id) && Objects.equals(Name, game.Name) && Objects.equals(dataCreated, game.dataCreated) && Objects.equals(dataModified, game.dataModified) && rank == game.rank && rankMonth == game.rankMonth && rankWeek == game.rankWeek;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(_id, name, rankWeek, rank);
+    return Objects.hash(id, Name, dataCreated, dataModified, rank, rankMonth, rankWeek);
   }
 
   @Override
   public String toString() {
     return "{" +
-      " _id='" + get_id() + "'" +
-      ", name='" + getName() + "'" +
-      ", rankWeek='" + getRankWeek() + "'" +
+      " id='" + getId() + "'" +
+      ", Name='" + getName() + "'" +
+      ", dataCreated='" + getDataCreated() + "'" +
+      ", dataModified='" + getDataModified() + "'" +
       ", rank='" + getRank() + "'" +
+      ", rankMonth='" + getRankMonth() + "'" +
+      ", rankWeek='" + getRankWeek() + "'" +
       "}";
   }
-  
-  
- 
-
-
- 
- 
- 
- 
- }
+}
