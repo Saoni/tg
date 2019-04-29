@@ -38,7 +38,7 @@ public class GameController {
   public ResponseEntity<List> getTopRank(@RequestParam Integer topRank) {
     Integer topRankNumbers[]={10,20,50,100,200};
     List<Integer> topRankNumberList= Arrays.asList(topRankNumbers);
-    
+
     if (topRankNumberList.contains(topRank)){
       return ResponseEntity.ok(gameMongoDbService.getTopRank(topRank));
     }
@@ -48,6 +48,17 @@ public class GameController {
   @GetMapping("/getRankHistory")
   public ResponseEntity<GameMongoDbDTO> getRankHistory(@RequestParam String name, String market) {
       return ResponseEntity.ok(gameMongoDbService.getRankHistory(name,market));
+  }
+
+  @GetMapping("/getTopEntry")
+  public ResponseEntity<List> getTopEntry(@RequestParam Integer topEntry,Integer days){
+    Integer topEntryNumbers[]={10,20,50};
+    List<Integer> topEntryNumbersrList= Arrays.asList(topEntryNumbers);
+
+    if (topEntryNumbersrList.contains(topEntry)){
+      return ResponseEntity.ok(gameMongoDbService.getTopEntry(topEntry,days));
+    }
+    return (ResponseEntity<List>) ResponseEntity.badRequest();
   }
 
   @GetMapping("/getFavorites")

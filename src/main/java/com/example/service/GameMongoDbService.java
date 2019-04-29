@@ -10,4 +10,5 @@ public interface GameMongoDbService {
   public GameMongoDbDTO getRankHistory(String name, String market);
   public List getFavorites();
   public GameMongoDbDTO setFavorites(ObjectId id);
+  public List getTopEntry(Integer topEntry,Integer days);
 }

@@ -1,5 +1,6 @@
 package com.example.repositories;
 
+import java.time.Period;
 import java.util.List;
 import java.util.Optional;
 import com.example.models.Game;
@@ -17,6 +18,15 @@ public interface GameRepository extends MongoRepository<Game, ObjectId> {
 
   @Query("{favorite:true},{name:1}")
   List<Game> findFavoriteGames();
+
+  @Query("{top10Entry:{$gte : ?0}},{name:1}")
+  List<Game> findTop10Entry(long period);
+
+  @Query("{top20Entry:{$gte : ?0}},{name:1}")
+  List<Game> findTop20Entry(long period);
+
+  @Query("{top50Entry:{$gte : ?0}},{name:1}")
+  List<Game> findTop50Entry(long period);
 }
 
 
