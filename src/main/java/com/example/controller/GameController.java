@@ -71,6 +71,11 @@ public class GameController {
   ObjectId objId = new ObjectId(id);
    return ResponseEntity.ok(gameMongoDbService.setFavorites(objId));
   }
+
+  @GetMapping("/helloworld")
+  public ResponseEntity sayHello(){
+  return ResponseEntity.ok("Hello World");
+  }
 }
 
   
