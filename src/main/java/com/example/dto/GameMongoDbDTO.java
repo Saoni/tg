@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.example.models.Game;
 import org.bson.types.ObjectId;
 import java.util.Optional;
+import java.util.List;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -28,15 +29,23 @@ private int rankMonth;
 @JsonProperty("rankWeek")
 private int rankWeek;
 
+@JsonProperty("rankYesterday")
+private int rankYesterday;
+
+@JsonProperty("favorite")
+private boolean favorite;
+
   public GameMongoDbDTO() {
   }
 
-  public GameMongoDbDTO(ObjectId id, String Name, int rank, int rankMonth, int rankWeek) {
+  public GameMongoDbDTO(ObjectId id, String Name, int rank, int rankMonth, int rankWeek,int rankYesterday,boolean favorite) {
     this.id = id;
     this.Name = Name;
     this.rank = rank;
     this.rankMonth = rankMonth;
     this.rankWeek = rankWeek;
+    this.rankYesterday = rankYesterday;
+    this.favorite = favorite;
   }
 
   public ObjectId getId() {
@@ -79,6 +88,22 @@ private int rankWeek;
     this.rankWeek = rankWeek;
   }
 
+  public int getRankYesterday() {
+    return this.rankYesterday;
+  }
+
+  public void setRankYesterday(int rankYesterday) {
+    this.rankYesterday = rankYesterday;
+  }
+
+  public boolean getFavorite() {
+    return this.favorite;
+  }
+
+  public void setFavorite(boolean favorite) {
+    this.favorite = favorite;
+  }
+
   public GameMongoDbDTO id(ObjectId id) {
     this.id = id;
     return this;
@@ -104,6 +129,16 @@ private int rankWeek;
     return this;
   }
 
+  public GameMongoDbDTO rankYesterday(int rankYesterday) {
+    this.rankYesterday = rankYesterday;
+    return this;
+  }
+
+  public GameMongoDbDTO favorite(boolean favorite) {
+    this.favorite = favorite;
+    return this;
+  }
+
   @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -112,12 +147,12 @@ private int rankWeek;
             return false;
         }
         GameMongoDbDTO gameMongoDbDTO = (GameMongoDbDTO) o;
-        return Objects.equals(id, gameMongoDbDTO.id) && Objects.equals(Name, gameMongoDbDTO.Name) && rank == gameMongoDbDTO.rank && rankMonth == gameMongoDbDTO.rankMonth && rankWeek == gameMongoDbDTO.rankWeek;
+        return Objects.equals(id, gameMongoDbDTO.id) && Objects.equals(Name, gameMongoDbDTO.Name) && rank == gameMongoDbDTO.rank && rankMonth == gameMongoDbDTO.rankMonth && rankWeek == gameMongoDbDTO.rankWeek && rankYesterday == gameMongoDbDTO.rankYesterday && favorite == gameMongoDbDTO.favorite;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, Name, rank, rankMonth, rankWeek);
+    return Objects.hash(id, Name, rank, rankMonth, rankWeek, rankYesterday,favorite);
   }
 
   @Override
@@ -128,9 +163,10 @@ private int rankWeek;
       ", rank='" + getRank() + "'" +
       ", rankMonth='" + getRankMonth() + "'" +
       ", rankWeek='" + getRankWeek() + "'" +
+      ", rankYesterday='" + getRankYesterday() + "'" +
+      ", favorite='" + getFavorite() + "'" +
       "}";
   }
-
 
 public GameMongoDbDTO build(Optional<Game> game) {
  game.ifPresent(newGame -> {
@@ -138,7 +174,10 @@ public GameMongoDbDTO build(Optional<Game> game) {
   this.Name = newGame.getName();
   this.rank = newGame.getRank();
   this.rankWeek = newGame.getRankWeek();
-});
+  this.rankMonth = newGame.getRankMonth();
+  this.rankYesterday = newGame.getRankYesterday();
+  this.favorite = newGame.getFavorite();
+ });
 return this;
 }
 }

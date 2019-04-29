@@ -31,11 +31,16 @@ private int rankMonth;
 @Field("rankWeek")
 private int rankWeek;
 
+@Field("rankYesterday")
+private int rankYesterday;
+
+@Field("favorite")
+private boolean favorite;
 
   public Game() {
   }
 
-  public Game(ObjectId id, String Name, Long dataCreated, Long dataModified, int rank, int rankMonth, int rankWeek) {
+  public Game(ObjectId id, String Name, Long dataCreated, Long dataModified, int rank, int rankMonth, int rankWeek, int rankYesterday, boolean favorite) {
     this.id = id;
     this.Name = Name;
     this.dataCreated = dataCreated;
@@ -43,6 +48,8 @@ private int rankWeek;
     this.rank = rank;
     this.rankMonth = rankMonth;
     this.rankWeek = rankWeek;
+    this.rankYesterday = rankYesterday;
+    this.favorite = favorite;
   }
 
   public ObjectId getId() {
@@ -101,6 +108,22 @@ private int rankWeek;
     this.rankWeek = rankWeek;
   }
 
+  public int getRankYesterday() {
+    return this.rankYesterday;
+  }
+
+  public void setRankYesterday(int rankYesterday) {
+    this.rankYesterday = rankYesterday;
+  }
+
+  public boolean getFavorite() {
+    return this.favorite;
+  }
+
+  public void setFavorite(boolean favorite) {
+    this.favorite = favorite;
+  }
+
   public Game id(ObjectId id) {
     this.id = id;
     return this;
@@ -135,6 +158,15 @@ private int rankWeek;
     this.rankWeek = rankWeek;
     return this;
   }
+  public Game rankYesterday(int rankYesterday) {
+    this.rankYesterday = rankYesterday;
+    return this;
+  }
+
+  public Game favorite(boolean favorite) {
+    this.favorite = favorite;
+    return this;
+  }
 
   @Override
     public boolean equals(Object o) {
@@ -144,12 +176,12 @@ private int rankWeek;
             return false;
         }
         Game game = (Game) o;
-        return Objects.equals(id, game.id) && Objects.equals(Name, game.Name) && Objects.equals(dataCreated, game.dataCreated) && Objects.equals(dataModified, game.dataModified) && rank == game.rank && rankMonth == game.rankMonth && rankWeek == game.rankWeek;
+        return Objects.equals(id, game.id) && Objects.equals(Name, game.Name) && Objects.equals(dataCreated, game.dataCreated) && Objects.equals(dataModified, game.dataModified) && rank == game.rank && rankMonth == game.rankMonth && rankWeek == game.rankWeek && rankYesterday == game.rankYesterday && favorite == game.favorite;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, Name, dataCreated, dataModified, rank, rankMonth, rankWeek);
+    return Objects.hash(id, Name, dataCreated, dataModified, rank, rankMonth, rankWeek, rankYesterday, favorite);
   }
 
   @Override
@@ -162,6 +194,8 @@ private int rankWeek;
       ", rank='" + getRank() + "'" +
       ", rankMonth='" + getRankMonth() + "'" +
       ", rankWeek='" + getRankWeek() + "'" +
+      ", rankYesterday='" + getRankYesterday() + "'" +
+      ", favorite='" + getFavorite() + "'" +
       "}";
   }
 }
